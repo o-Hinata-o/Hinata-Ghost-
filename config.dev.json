@@ -1,7 +1,7 @@
 {
   "facebookAccount": {
-    "email": "fiantot27@gmail.com",
-    "password": "Fiantorousseautitus00",
+    "email": "",
+    "password": "",
     "2FASecret": "",
     "i_user": "",
     "proxy": null,
@@ -17,16 +17,16 @@
     "ignoreCommand": []
   },
   "adminBot": [
-    "100089877583784",
-    ""
+    "61556172651835",
+    "61558475382177"
   ],
   "whiteListMode": {
     "enable": false,
     "whiteListIds": [],
     "notes": "if you enable this feature, only the ids in the whiteListIds section can use the bot"
   },
-  "nickNameBot": "Rousseau |👨🏾‍🦯",
-  "prefix": "€",
+  "nickNameBot": "💚✿『INATA』 ✿💚",
+  "prefix": "-",
   "database": {
     "type": "sqlite",
     "uriMongodb": "",
