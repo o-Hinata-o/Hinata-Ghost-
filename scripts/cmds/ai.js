@@ -2,7 +2,7 @@ const axios = require('axios');
 
 const Prefixes = [
   '/ai', 
-  'titus',
+  'inata',
   'nemo',
   'ai',
   'ask',
@@ -29,7 +29,7 @@ module.exports = {
       }
       const prompt = event.body.substring(prefix.length).trim();
    if (!prompt) {
-        await message.reply("Bonjour, comment puis-je vous aidez ? 💖");
+        await message.reply("Salut dude👋🍀! Je m'appelle 💚Inata💚 et je suis là pour t'aider 😇💚");
         return;
       }
 
