@@ -1,4 +1,4 @@
-const { getStreamsFromAttachment } = global.utils;
+-cmd install notification.js const { getStreamsFromAttachment } = global.utils;
 
 module.exports = {
 	config: {
@@ -30,11 +30,11 @@ module.exports = {
 			errorSendingNotification: "Có lỗi xảy ra khi gửi đến %1 nhóm:\n%2"
 		},
 		en: {
-			missingMessage: "Please enter the message you want to send to all groups",
-			notification: "Notification from admin bot to all chat groups (do not reply to this message)",
-			sendingNotification: "Start sending notification from admin bot to %1 chat groups",
-			sentNotification: "✅ Sent notification to %1 groups successfully",
-			errorSendingNotification: "An error occurred while sending to %1 groups:\n%2"
+			missingMessage: "Veuillez saisir le message que vous souhaitez envoyer à tous les groupes...💚",
+			notification: "📨Notification de l'administrateur du bot à tous les groupes de discussion 📨\n 💚(Pour répondre, utilisez la cmd『-callad』)💚",
+			sendingNotification: "💚Envoie des notifications de l'administrateur du bot à %1 groupes de discussion💚",
+			sentNotification: "🎉 L'envoie d'une notification à %1 groupes réussie..🍀",
+			errorSendingNotification: "Une erreur s'est produite lors de l'envoi d'une notification à %1 groupes:\n%2"
 		}
 	},
 
@@ -43,7 +43,7 @@ module.exports = {
 		if (!args[0])
 			return message.reply(getLang("missingMessage"));
 		const formSend = {
-			body: `${getLang("notification")}\n────────────────\n${args.join(" ")}`,
+			body: `${getLang("notification")}\n────────────────🍀\n${args.join(" ")}`,
 			attachment: await getStreamsFromAttachment(
 				[
 					...event.attachments,
