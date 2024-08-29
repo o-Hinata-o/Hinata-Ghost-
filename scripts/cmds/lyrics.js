@@ -1,43 +1,38 @@
-const axios = require("axios");
+module.exports.config = {
+  name: "lyrics",
+  role: 0, 
+  description: "Search Lyrics",
+  usage: "[title of song]",
+  credits: "deku & remod to mirai by Eugene Aguilar",
+  cooldown: 0,
+  hasPrefix: false
+}
 
-module.exports = {
- config: {
- name: "lyrics",
- version: "1.0",
- author: "modified by yukinori",
- countDown: 5,
- role: 0,
- shortDescription: {
- en: "Get lyrics for a song",
- },
- longDescription: {
- en: "This command allows you to get the lyrics for a song. Usage: !lyrics <song name>",
- },
- category: "music",
- guide: {
- en: "{prefix}lyrics <song name>",
- },
- },
+module.exports.run = async function({ api, event, args }) {
+  const fs = require("fs");
+  const axios = require("axios");
+  const t = args.join(" ");
 
- onStart: async function ({ api, event, args }) {
- const songName = args.join(" ");
- if (!songName) {
- api.sendMessage("Please provide a song name!", event.threadID, event.messageID);
- return;
- }
+  if (!t) return api.sendMessage("[❌] The song is 𝗠𝗜𝗦𝗦𝗜𝗡𝗚.", event.threadID, event.messageID);
 
- const apiUrl = `https://lyrist.vercel.app/api/${encodeURIComponent(songName)}`;
- try {
- const response = await axios.get(apiUrl);
- const lyrics = response.data.lyrics;
- if (!lyrics) {
- api.sendMessage("Sorry, lyrics not found!", event.threadID, event.messageID);
- return;
- }
- api.sendMessage(lyrics, event.threadID, event.messageID);
- } catch (error) {
- console.error(error);
- api.sendMessage("Sorry, there was an error getting the lyrics!", event.threadID, event.messageID);
- }
- },
-};
+  try {
+    const r = await axios.get('https://lyrist.vercel.app/api/' + t);
+    const { image, lyrics, artist, title } = r.data;
+
+    let ly = __dirname + "/../public/image/lyrics.png";
+    let suc = (await axios.get(image, { responseType: "arraybuffer" })).data;
+    fs.writeFileSync(ly, Buffer.from(suc, "utf-8"));
+    let img = fs.createReadStream(ly);
+
+    api.setMessageReaction("🎼", event.messageID, (err) => {}, true);
+
+    return api.sendMessage({
+      body: `シ𝗛𝗘𝗥𝗘 𝗧𝗛𝗘 𝗟𝗬𝗥𝗜𝗖𝗦シ\n\n▪[📑]𝗧𝗜𝗧𝗟𝗘: \n➤ ${title}\n━━━━━━━━━━━\n▪[🆔]𝗔𝗥𝗧𝗜𝗦𝗧𝗘: \n➤ ${artist}\n━━━━━━━━━━━\n▪〉﹝𝗟𝗬𝗥𝗜𝗖𝗦﹞:\n\n${lyrics}\n━━━━━━━━━━━\n\n🟢ᗩƐᔕƬHƐᖇ⚪- ˕ •マ`,
+      attachment: img
+    }, event.threadID, () => fs.unlinkSync(ly), event.messageID);
+  } catch (a) {
+    api.setMessageReaction("😿", event.messageID, (err) => {}, true);
+
+    return api.sendMessage(a.message, event.threadID, event.messageID);
+  }
+                              }
