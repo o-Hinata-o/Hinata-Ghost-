@@ -31,8 +31,8 @@ module.exports.run = async function({ api, event, args }) {
       attachment: img
     }, event.threadID, () => fs.unlinkSync(ly), event.messageID);
   } catch (a) {
-    api.setMessageReaction("😿", event.messageID, (err) => {}, true);
+    api.setMessageReaction("❌", event.messageID, (err) => {}, true);
 
     return api.sendMessage(a.message, event.threadID, event.messageID);
   }
-                              }
+}
