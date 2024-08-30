@@ -20,10 +20,10 @@ module.exports = {
       antiout = true;
     }
     if (!["on", "off"].includes(args[0])) {
-      return message.reply("Please use 'on' or 'off' as an argument");
+      return message.reply("𝗩𝗲𝘂𝗶𝗹𝗹𝗲𝘇 𝘂𝘁𝗶𝗹𝗶𝘀𝗲𝗿 [-𝗮𝗻𝘁𝗶𝗼𝘂𝘁 𝗼𝗻] 𝗼𝘂 [-𝗮𝗻𝘁𝗶𝗼𝘂𝘁 𝗼𝗳𝗳]...🍀");
     }
     await threadsData.set(event.threadID, args[0] === "on", "settings.antiout");
-    return message.reply(`Antiout has been ${args[0] === "on" ? "enabled" : "disabled"}.`);
+    return message.reply(`𝗟'𝗮𝗻𝘁𝗶𝗼𝘂𝘁 𝗮 𝗲́𝘁𝗲́ 💚${args[0] === "on" ? "𝗮𝗰𝘁𝗶𝘃𝗲́" : "𝗱𝗲́𝘀𝗮𝗰𝘁𝗶𝘃𝗲́"}💚`);
   },
   onEvent: async function({ api, event, threadsData }) {
     const antiout = await threadsData.get(event.threadID, "settings.antiout");
