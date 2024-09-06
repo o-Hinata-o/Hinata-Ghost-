@@ -1,6 +1,6 @@
 {
   "facebookAccount": {
-    "email": "",
+    "email": "inatajunior@gmail.com",
     "password": "",
     "2FASecret": "",
     "i_user": "",
@@ -26,7 +26,7 @@
     "whiteListIds": [],
     "notes": "if you enable this feature, only the ids in the whiteListIds section can use the bot"
   },
-  "nickNameBot": "💚✿『𝐈𝐍𝐀𝐓𝐀』✿💚",
+  "nickNameBot": "💚✿𝐈𝐍𝐀𝐓𝐀✿💚",
   "prefix": "*",
   "database": {
     "type": "sqlite",
