@@ -1,140 +1,80 @@
-module.exports = {
-	config: {
-		name: "hentai",
-		aliases: [],
-		version: "1.0",
-		author: "kivv",
-    
+const axios = require('axios');
 
-		countDown: 5,
-		role: 2,
-		shortDescription: "developer only dear",
-		longDescription: "",
-		category: "p0rno 🔞",
-		guide: "{pn}"
-	},
+// Define the fonts mapping
+const fonts = {
+    a: "a", b: "b", c: "c", d: "d", e: "e", f: "f", g: "g", h: "h", i: "i",
+    j: "j", k: "k", l: "l", m: "m", n: "n", o: "o", p: "p", q: "q", r: "r",
+    s: "s", t: "t", u: "u", v: "v", w: "w", x: "x", y: "y", z: "z",
+    A: "𝗔", B: "𝗕", C: "𝗖", D: "𝗗", E: "𝗘", F: "𝗙", G: "𝗚", H: "𝗛", I: "𝗜",
+    J: "𝗝", K: "𝗞", L: "𝗟", M: "𝗠", N: "𝗡", O: "𝗢", P: "𝗣", Q: "𝗤", R: "𝗥",
+    S: "𝗦", T: "𝗧", U: "𝗨", V: "𝗩", W: "𝗪", X: "𝗫", Y: "𝗬", Z: "𝗭",
+};
 
-	onStart: async function ({ message }) {
-	    var link = [
-   "https://i.imgur.com/mNesqCm.jpg",
-"https://i.imgur.com/ChtMmje.jpg",
-"https://i.imgur.com/2oTwWjZ.png",
-"https://i.imgur.com/ZOcTTvR.jpg",
-"https://i.imgur.com/ccLl6Ym.png",
-"https://i.imgur.com/bdQ5fK9.png",
-"https://i.imgur.com/zyqGxHc.png",
-"https://i.imgur.com/1dFL3ZI.png",
-"https://i.imgur.com/SKsfMCE.jpg",
-"https://i.imgur.com/vhinUxm.png",
-"https://i.imgur.com/5QXTkQr.jpg",
-"https://i.imgur.com/cMeEbZe.jpg",
-"https://i.imgur.com/HRDcYSW.jpg",
-"https://i.imgur.com/sp1SnE4.jpg",
-"https://i.imgur.com/Ki3hy27.jpg",
-"https://i.imgur.com/8bxgU0f.jpg",
-"https://i.imgur.com/7iDnRg6.jpg",
-"https://i.imgur.com/shKYOem.png",
-"https://i.imgur.com/MGNxYj4.jpg",
-"https://i.imgur.com/1DTrdAl.jpg",
-"https://i.imgur.com/xAKKpfT.png",
-"https://i.imgur.com/ChtMmje.jpg",
-"https://i.imgur.com/ujo6Yvu.jpg",
-"https://i.imgur.com/dVcSVDs.jpg",
-"https://i.imgur.com/rpdXJEa.jpg",
-"https://i.imgur.com/sToM2cj.png",
-"https://i.imgur.com/wzUFRb9.png",
-"https://i.imgur.com/n378ZMT.png",
-"https://i.imgur.com/A8dKVOY.jpg",
-"https://i.imgur.com/6a7lQUa.jpg",
-"https://i.imgur.com/Oc1XLXW.jpg",
-"https://i.imgur.com/MpQ7qN3.png",
-"https://i.imgur.com/GK2iXnb.jpg",
-"https://i.imgur.com/cwHOc0j.jpg",
-"https://i.imgur.com/NHRGsp6.jpg",
-"https://i.imgur.com/Ia9ugv3.jpg",
-"https://i.imgur.com/CqszBU7.jpg",
-"https://i.imgur.com/JHm5muL.jpg",
-"https://i.imgur.com/509DTo9.png",
-"https://i.imgur.com/JjvzvuI.jpg",
-"https://i.imgur.com/hMljgoy.jpg",
-"https://i.imgur.com/lOn0Vru.jpg",
-"https://i.imgur.com/eDFtiW3.jpg",
-"https://i.imgur.com/JYKT9Uv.jpg",
-"https://i.imgur.com/pG0YTtt.jpg",
-"https://i.imgur.com/tZP3MMz.png",
-"https://i.imgur.com/RM9ukif.jpg",
-"https://i.imgur.com/gMRKKyj.png",
-"https://i.imgur.com/m4WWhGW.png",
-"https://i.imgur.com/3XcAUud.jpg",
-"https://i.imgur.com/ycnn0HV.png",
-"https://i.imgur.com/8VjmAbA.jpg",
-"https://i.imgur.com/vXgbs3j.jpg",
-"https://i.imgur.com/OQ3d05j.jpg",
-"https://i.imgur.com/bXGDK0Y.jpg",
-"https://i.imgur.com/UcvGgH7.jpg",
-"https://i.imgur.com/Ei4JcHB.jpg",
-"https://i.imgur.com/jHcd7na.jpg",
-"https://i.imgur.com/FaN7cnv.png",
-"https://i.imgur.com/hH0of56.png",
-"https://i.imgur.com/pmUdyLW.jpg",
-"https://i.imgur.com/gpsqjlX.jpg",
-"https://i.imgur.com/ohpsz0U.jpg",
-"https://i.imgur.com/Ar8ioUD.png",
-"https://i.imgur.com/WsVWcq2.jpg",
-"https://i.imgur.com/XzQTER5.jpg",
-"https://i.imgur.com/0t1yKln.jpg",
-"https://i.imgur.com/iXAHEqa.jpg",
-"https://i.imgur.com/7yAtWmQ.png",
-"https://i.imgur.com/71f21Ix.png",
-"https://i.imgur.com/x0bcEFl.png",
-"https://i.imgur.com/lH7lYVc.png",
-"https://i.imgur.com/ba8LkRB.png",
-"https://i.imgur.com/FsP5lSm.jpg",
-"https://i.imgur.com/X25um8b.jpg",
-"https://i.imgur.com/rSBexdO.png",
-"https://i.imgur.com/tTTXPgb.png",
-"https://i.imgur.com/MaBiBiD.png",
-"https://i.imgur.com/cZwQjP7.jpg",
-"https://i.imgur.com/iCFsBHc.jpg",
-"https://i.imgur.com/dTZGPiM.jpg",
-"https://i.imgur.com/bQ5xRTG.png",
-"https://i.imgur.com/aFXDHWL.jpg",
-"https://i.imgur.com/tdU2fbU.png",
-"https://i.imgur.com/faRtrw6.png",
-"https://i.imgur.com/id08VTo.png",
-"https://i.imgur.com/heLM5yF.png",
-"https://i.imgur.com/qwRAAlu.png",
-"https://i.imgur.com/7lR2uR3.png",
-"https://i.imgur.com/vL15U0T.jpg",
-"https://i.imgur.com/jhuTb7V.png",
-"https://i.imgur.com/drfQ40t.png",
-"https://i.imgur.com/uUBPHaJ.png",
-"https://i.imgur.com/RG3okEu.jpg",
-"https://i.imgur.com/Z0TXFH4.jpg",
-"https://i.imgur.com/3m8hzJN.jpg",
-"https://i.imgur.com/RhID5od.png",
-"https://i.imgur.com/ya7YRI0.jpg",
-"https://i.imgur.com/LD3RVrr.jpg",
-"https://i.imgur.com/1w2rB4L.png",
-"https://i.imgur.com/EQL8NaV.jpg",
-"https://i.imgur.com/znt95h8.jpg",
-"https://i.imgur.com/nygmcPC.png",
-"https://i.imgur.com/HqD91sB.png",
-"https://i.imgur.com/5Dr78D4.jpg",
-"https://i.imgur.com/DdOnuos.png",
-"https://i.imgur.com/3E5zzCr.png",
-"https://i.imgur.com/CTzsGiL.png",
-"https://i.imgur.com/awlG1W2.jpg",
-"https://i.imgur.com/sAbp1dU.jpg",
-"https://i.imgur.com/GSSJLSF.png",
-"https://i.imgur.com/vDM906Y.jpg",
-"https://i.imgur.com/hCoFifQ.jpg"    
-        
-]
-
-let img = link[Math.floor(Math.random()*link.length)]
-message.reply({body: "here's your random hentai ❤️",
-  attachment: await global.utils.getStreamFromURL(img)
-})
+async function fetchFromAI(url, params) {
+    try {
+        const response = await axios.get(url, { params });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
 }
+
+async function getAIResponse(input, userId, messageID) {
+    const services = [
+        { url: 'https://ai-tools.replit.app/gpt', params: { prompt: input, uid: userId } },
+        { url: 'https://openaikey-x20f.onrender.com/api', params: { prompt: input } },
+        { url: 'http://fi1.bot-hosting.net:6518/gpt', params: { query: input } },
+        { url: 'https://ai-chat-gpt-4-lite.onrender.com/api/hercai', params: { question: input } }
+    ];
+
+    let response = "𝗕𝗼𝗻𝗷𝗼𝘂𝗿! 𝗝𝗲 𝘀𝘂𝗶𝘀 𝗹à 𝗽𝗼𝘂𝗿 𝘁'𝗮𝗶𝗱𝗲𝗿 𝗲𝘁 𝗿é𝗽𝗼𝗻𝗱𝗿𝗲 à 𝘁𝗲𝘀 𝗾𝘂𝗲𝘀𝘁𝗶𝗼𝗻𝘀. 𝗡'𝗵é𝘀𝗶𝘁𝗲 𝗽𝗮𝘀 à 𝗺𝗲 𝗱𝗲𝗺𝗮𝗻𝗱𝗲𝗿 𝗰𝗲 𝗾𝘂𝗲 𝘁𝘂 𝘃𝗲𝘂𝘅!....🍀";
+    let currentIndex = 0;
+
+    for (let i = 0; i < services.length; i++) {
+        const service = services[currentIndex];
+        const data = await fetchFromAI(service.url, service.params);
+        if (data && (data.gpt4 || data.reply || data.response)) {
+            response = data.gpt4 || data.reply || data.response;
+            break;
         }
+        currentIndex = (currentIndex + 1) % services.length; // Move to the next service in the cycle
+    }
+
+    // Convert response to special fonts
+    const convertedResponse = Array.from(response)
+        .map(char => fonts[char] || char) // Use special font or original character if not in fonts
+        .join('');
+
+    return { response: convertedResponse, messageID };
+}
+
+module.exports = {
+    config: {
+        name: 'hinata',
+        author: 'aesther',
+        role: 0,
+        category: 'ai',
+        shortDescription: 'ai to ask anything',
+    },
+    onStart: async function ({ api, event, args }) {
+        const input = args.join(' ').trim();
+        if (!input) {
+            api.sendMessage(`🫰✰`, event.threadID, event.messageID);
+            return;
+        }
+
+        const { response, messageID } = await getAIResponse(input, event.senderID, event.messageID);
+        api.sendMessage(`✰...𝔻𝕒𝕧𝕚𝕕 𝐩𝐫𝐨𝐜𝐞̀𝐝𝐞 𝐚 𝐯𝐨𝐭𝐫𝐞 𝐫𝐞𝐪𝐮𝐞̂𝐭𝐞...✰`, event.threadID, messageID);
+    },
+    onChat: async function ({ event, message }) {
+        const messageContent = event.body.trim().toLowerCase();
+        if (messageContent.startsWith("hinata")) {
+            const input = messageContent.replace(/^hinata\s*/, "").trim();
+            const { response, messageID } = await getAIResponse(input, event.senderID, message.messageID);
+            // Construct message with special fonts
+            const formattedResponse = ` ✿❯─-───💚───-─❮✿\n\n✿─❮${response}❯─✿\n \n✿❯─-───💚───-─❮✿`;
+            message.reply(formattedResponse, messageID);
+        }
+    }
+};
