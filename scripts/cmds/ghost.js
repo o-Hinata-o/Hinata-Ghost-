@@ -4,7 +4,7 @@ const Prefixes = [
   'Ghost Hinata', 
   'ghost',
   'Le fantôme',
-  'Ghost',
+  'ai',
   'Ghost',
 ];
 
