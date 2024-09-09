@@ -2,9 +2,9 @@ const axios = require('axios');
 
 // Define the fonts mapping
 const fonts = {
-    a: "𝗮", b: "𝗯", c: "𝗰", d: "𝗱", e: "𝗲", f: "𝗳", g: "𝗴", h: "𝗵", i: "𝗶",
-    j: "𝗷", k: "𝗸", l: "𝗹", m: "𝗺", n: "𝗻", o: "𝗼", p: "𝗽", q: "𝗾", r: "𝗿",
-    s: "𝘀", t: "𝘁", u: "𝘂", v: "𝘃", w: "𝘄", x: "𝘅", y: "𝘆", z: "𝘇",
+    a: "a", b: "b", c: "c", d: "d", e: "e", f: "f", g: "g", h: "h", i: "i",
+    j: "j", k: "k", l: "l", m: "m", n: "n", o: "o", p: "p", q: "q", r: "r",
+    s: "s", t: "t", u: "u", v: "v", w: "w", x: "x", y: "y", z: "z",
     A: "𝗔", B: "𝗕", C: "𝗖", D: "𝗗", E: "𝗘", F: "𝗙", G: "𝗚", H: "𝗛", I: "𝗜",
     J: "𝗝", K: "𝗞", L: "𝗟", M: "𝗠", N: "𝗡", O: "𝗢", P: "𝗣", Q: "𝗤", R: "𝗥",
     S: "𝗦", T: "𝗧", U: "𝗨", V: "𝗩", W: "𝗪", X: "𝗫", Y: "𝗬", Z: "𝗭",
@@ -69,8 +69,8 @@ module.exports = {
     },
     onChat: async function ({ event, message }) {
         const messageContent = event.body.trim().toLowerCase();
-        if (messageContent.startsWith("ai")) {
-            const input = messageContent.replace(/^ai\s*/, "").trim();
+        if (messageContent.startsWith("hinata")) {
+            const input = messageContent.replace(/^hinata\s*/, "").trim();
             const { response, messageID } = await getAIResponse(input, event.senderID, message.messageID);
             // Construct message with special fonts
             const formattedResponse = ` ✿❯─-───💚───-─❮✿\n\n✿─❮${response}❯─✿\n \n✿❯─-───💚───-─❮✿`;
