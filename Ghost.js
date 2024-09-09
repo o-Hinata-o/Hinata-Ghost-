@@ -3,7 +3,7 @@ const axios = require('axios');
 const Prefixes = [
   '-Ghost', 
   'ghost',
-  'Le fantôme',
+  'fantôme',
   'Ghost',
   'Ghost',
 ];
