@@ -29,7 +29,7 @@ module.exports = {
 			welcomeMessage: "✿❯────「✿」────❮✿\n💚𝗕𝗼𝗻𝗷𝗼𝘂𝗿 𝘁𝗼𝘂𝘁 𝗹𝗲 𝗺𝗼𝗻𝗱𝗲💚\n𝗠𝗲𝗿𝗰𝗶 𝗱𝗲 𝗺'𝗮𝘃𝗼𝗶𝗿 𝗶𝗻𝘃𝗶𝘁𝗲́ 𝗱𝗮𝗻𝘀 𝗰𝗲 𝗴𝗿𝗼𝘂𝗽𝗲\n𝗠𝗼𝗻 𝗽𝗿𝗲𝗳𝗶𝘅 𝗲𝘀𝘁【%1】\n𝗣𝗼𝘂𝗿 𝗮𝗳𝗳𝗶𝗰𝗵𝗲𝗿 𝗹𝗮 𝗹𝗶𝘀𝘁𝗲 𝗱𝗲𝘀 𝗰𝗼𝗺𝗺𝗮𝗻𝗱𝗲𝘀, 𝘃𝗲𝘂𝗶𝗹𝗹𝗲𝘇 𝘀𝗮𝗶𝘀𝗶𝗿:💚 %1𝗵𝗲𝗹𝗽💚\n✿❯────「✿」────❮✿",
 			multiple1: "you",
 			multiple2: "you guys",
-			defaultWelcomeMessage: `𝗕𝗼𝗻𝗷𝗼𝘂𝗿 💚{𝘂𝘀𝗲𝗿𝗡𝗮𝗺𝗲}💚\n𝗕𝗶𝗲𝗻𝘃𝗲𝗻𝘂𝗲 𝗱𝗮𝗻𝘀 𝗻𝗼𝘁𝗿𝗲 𝗴𝗿𝗼𝘂𝗽𝗲 💚{boxName}💚 \n𝗡𝗼𝘂𝘀 𝘀𝗼𝗺𝗺𝗲𝘀 𝗿𝗮𝘃𝗶𝘀 𝗱𝗲 𝘁'𝗮𝗰𝗰𝘂𝗲𝗶𝗹𝗹𝗶𝗿 𝗽𝗮𝗿𝗺𝗶 𝗻𝗼𝘂𝘀. 𝗕𝗼𝗻𝗻𝗲 {session} 😊🍀`
+			defaultWelcomeMessage: `𝗕𝗼𝗻𝗷𝗼𝘂𝗿 💚{userName}💚\n𝗕𝗶𝗲𝗻𝘃𝗲𝗻𝘂𝗲 𝗱𝗮𝗻𝘀 𝗻𝗼𝘁𝗿𝗲 𝗴𝗿𝗼𝘂𝗽𝗲 💚{boxName}💚 \n𝗡𝗼𝘂𝘀 𝘀𝗼𝗺𝗺𝗲𝘀 𝗿𝗮𝘃𝗶𝘀 𝗱𝗲 𝘁'𝗮𝗰𝗰𝘂𝗲𝗶𝗹𝗹𝗶𝗿 𝗽𝗮𝗿𝗺𝗶 𝗻𝗼𝘂𝘀. 𝗕𝗼𝗻𝗻𝗲 {session} 😊🍀`
 		}
 	},
 
@@ -83,7 +83,7 @@ module.exports = {
 							id: user.userFbId
 						});
 					}
-					// {𝘂𝘀𝗲𝗿𝗡𝗮𝗺𝗲}:   𝗻𝗮𝗺𝗲 𝗼𝗳 𝗻𝗲𝘄 𝗺𝗲𝗺𝗯𝗲𝗿
+					// {userName}:   name of new member
 					// {multiple}:
 					// {boxName}:    name of group
 					// {threadName}: name of group
