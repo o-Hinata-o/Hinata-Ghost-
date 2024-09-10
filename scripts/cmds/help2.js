@@ -3,7 +3,7 @@ const axios = require("axios");
 const path = require("path");
 const { getPrefix } = global.utils;
 const { commands, aliases } = global.GoatBot;
-const doNotDelete = "[ ♥️| 𝙔𝘼𝙕𝙆𝙔 𝘼𝙄 ]"; // changing this wont change the goatbot V2 of list cmd it is just a decoyy
+const doNotDelete = "[ ♥| 𝐒𝐇𝐈𝐙𝐔𝐊𝐀 ]"; // changing this wont change the goatbot V2 of list cmd it is just a decoyy
 
 module.exports = {
 	config: {
@@ -34,8 +34,7 @@ module.exports = {
 			const categories = {};
 			let msg = "";
 
-			msg += `░░░░█▄█ ▄▀█ ▀█ █▄▀ █▄█░░░
-░░░░░█░ █▀█ █▄ █░█ ░█░░░░\n\n◦❭❯❱ 𝗖𝗢𝗠𝗠𝗔𝗡𝗗𝗦 & 𝗖𝗔𝗧𝗘𝗚𝗢𝗥𝗬 ❰❮❬◦`; // replace with your name 
+			msg += `\n✿ /)    /)                  (＼  (＼ \n✿(｡•ㅅ•｡)〝₎₎            (⁠ㆁ⁠ω⁠ㆁ)\n╭∪─∪─────∪─∪╮\n├─–✿🌸𝐇𝐈𝐍𝐀𝐓𝐀🌸✿─┤\n╰━━━━━━━━━━━╯\n╭━━━━━━━━━━━•❖\n│𝐋𝐢𝐬𝐭𝐞 𝐝𝐞𝐬 𝐜𝐦𝐝𝐬\n╰━━━━━━━━━━━╮`; // replace with your name 
 
 			for (const [name, value] of commands) {
 				if (value.config.role > 1 && role < value.config.role) continue;
@@ -47,23 +46,23 @@ module.exports = {
 
 			Object.keys(categories).forEach((category) => {
 				if (category !== "info") {
-					msg += `\n╭───────────❍\n│ 『  ${category.toUpperCase()}  』`;
+					msg += `\n╭━━━━━━━━━━━╯\n│ ⊱–{ ${category.toUpperCase()} }–⊰`;
 
 
 					const names = categories[category].commands.sort();
 					for (let i = 0; i < names.length; i += 3) {
-						const cmds = names.slice(i, i + 3).map((item) => `✰${item}`);
-						msg += `\n│ ${cmds.join(" ".repeat(Math.max(1, 10 - cmds.join("").length)))}`;
+						const cmds = names.slice(i, i + 3).map((item) => `\n│✰${item}`);
+						msg += `${cmds.join(" ".repeat(Math.max(1, 10 - cmds.join("").length)))}`;
 					}
 
-					msg += `\n╰────────────𒁍`;
+					msg += `\n╰━━━━━━━━━━━╮`;
 				}
 			});
 
 			const totalCommands = commands.size;
-			msg += `\n𝗖𝘂𝗿𝗿𝗲𝗻𝘁𝗹𝘆, 𝘁𝗵𝗲 𝗯𝗼𝘁 𝗵𝗮𝘀 ${totalCommands} 𝗰𝗼𝗺𝗺𝗮𝗻𝗱𝘀 𝘁𝗵𝗮𝘁 𝗰𝗮𝗻 𝗯𝗲 𝘂𝘀𝗲𝗱\n`;
-			msg += `𝗧𝘆𝗽𝗲 ${prefix} 𝗵𝗲𝗹𝗽 𝗰𝗺𝗱𝗡𝗮𝗺𝗲 𝘁𝗼 𝘃𝗶𝗲𝘄 𝘁𝗵𝗲 𝗱𝗲𝘁𝗮𝗶𝗹𝘀 𝗼𝗳 𝘁𝗵𝗮𝘁 𝗰𝗼𝗺𝗺𝗮𝗻𝗱\n\n`;
-			msg += `♥️ | GoatBot V2`; // its not decoy so change it if you want 
+			msg += `❖━━━━━━━━━━━╯\n╭━━━━━━━━━━━•❖\n│𝐈𝐍𝐅𝐎\n│𝐒𝐔𝐏𝐏𝐋𝐄́𝐌𝐄𝐍𝐓𝐀𝐈𝐑𝐄\n├━━━━━━━━━━━•❖\n│𝐀𝐜𝐭𝐮𝐞𝐥𝐥𝐞𝐦𝐞𝐧𝐭 𝐣'𝐚𝐢 ${totalCommands}\n│𝐜𝐨𝐦𝐦𝐚𝐧𝐝𝐞𝐬 𝐝𝐢𝐬𝐩𝐨𝐧𝐢𝐛𝐥𝐞𝐬\n├━━━━━━━━━━━•❖`;
+			msg += `\n│𝐓𝐚𝐩𝐞 ${prefix} 𝗵𝗲𝗹𝗽+𝐧𝐨𝐦\n│𝐝𝐞 𝐥𝐚 𝐜𝐦𝐝 𝐩𝐨𝐮𝐫 𝐯𝐨𝐢𝐫 𝐥𝐞𝐬 \n│𝐝𝐞́𝐭𝐚𝐢𝐥𝐬 𝐝𝐞 𝐥𝐚 𝐜𝐨𝐦𝐦𝐚𝐧𝐝𝐞\n├━━━━━━━━━━━•❖\n`;
+			msg += `│https://\n│www.facebook.com/\n│simon.junior27?mibextid=\n│ZbWKwL\n╰━━━━━━━━━━━•❖`; // its not decoy so change it if you want 
 
 			const helpListImages = [
 				'https://imgur.com/a/sdVoLzm',
@@ -147,4 +146,4 @@ function roleTextToString(roleText) {
 		default:
 			return "Unknown role";
 	}
-        }
+}
