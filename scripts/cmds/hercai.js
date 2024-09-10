@@ -1,1 +1,80 @@
-const axios = require('axios');module.exports = {  config: {    name: 'Hercai',    version: '1.0',    author: 'Openai',    role: 0,    category: 'Ai-Chat',    shortDescription: { en: `ChatGPT is a large language \n| model trained by OpenAI. It is designed \n| to be able to assist with wide range of \n| tasks.` },    longDescription: { en: `ChatGPT is a large language \n| model trained by OpenAI. It is designed \n| to be able to assist with wide range of \n| tasks.` },    guide: { en: '{pn}Herc.ai [query]' },  },  onStart: async function ({ api, event }) {    try {      const query = args.join(" ");      if (query) {        const processingMessage = await api.sendMessage(`Asking ChatGPT. Please wait a moment...`, event.threadID);        const response = await axios.get(`https://lianeapi.onrender.com/@hercai/api/Herc.ai?query=${encodeURIComponent(query)}`);                if (response.data && response.data.message) {          await api.sendMessage({ body: response.data.message.trim() }, event.threadID, event.messageID);          console.log(`Sent ChatGPT's response to the user`);        } else {          throw new Error(`Invalid or missing response from ChatGPT API`);        }        await api.unsendMessage(processingMessage.messageID);      }    } catch (error) {      console.error(`❌ | Failed to get ChatGPT's response: ${error.message}`);      api.sendMessage(`❌ | An error occured. You can try typing your query again or resending it. There might be an issue with the server that's causing the problem, and it might resolve on retrying.`, event.threadID);    }  },};
+const axios = require('axios');
+
+// Define the fonts mapping
+const fonts = {
+    a: "𝐚", b: "𝐛", c: "𝐜", d: "𝐝", e: "𝐞", f: "𝐟", g: "𝐠", h: "𝐡", i: "𝐢",
+    j: "𝐣", k: "𝐤", l: "𝐥", m: "𝐦", n: "𝐧", o: "𝐨", p: "𝐩", q: "𝐪", r: "𝐫",
+    s: "𝐬", t: "𝐭", u: "𝐮", v: "𝐯", w: "𝐰", x: "𝐱", y: "y", z: "𝐳",
+    A: "𝐀", B: "𝐁", C: "𝐂", D: "𝐃", E: "𝐄", F: "𝐅", G: "𝐆", H: "𝐇", I: "𝐈",
+    J: "𝐉", K: "𝐊", L: "𝐋", M: "𝐌", N: "𝐍", O: "𝐎", P: "𝐏", Q: "𝐐", R: "𝐑",
+    S: "𝐒", T: "𝐓", U: "𝐔", V: "𝐕", W: "𝐖", X: "𝐗", Y: "𝐘", Z: "𝐙",
+};
+
+async function fetchFromAI(url, params) {
+    try {
+        const response = await axios.get(url, { params });
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+async function getAIResponse(input, userId, messageID) {
+    const services = [
+        { url: 'https://ai-tools.replit.app/gpt', params: { prompt: input, uid: userId } },
+        { url: 'https://openaikey-x20f.onrender.com/api', params: { prompt: input } },
+        { url: 'http://fi1.bot-hosting.net:6518/gpt', params: { query: input } },
+        { url: 'https://ai-chat-gpt-4-lite.onrender.com/api/hercai', params: { question: input } }
+    ];
+
+    let response = "𝗕𝗼𝗻𝗷𝗼𝘂𝗿! 𝗝𝗲 𝘀𝘂𝗶𝘀 𝗹à 𝗽𝗼𝘂𝗿 𝗿é𝗽𝗼𝗻𝗱𝗿𝗲 à 𝘁𝗲𝘀 𝗾𝘂𝗲𝘀𝘁𝗶𝗼𝗻𝘀.";
+    let currentIndex = 0;
+
+    for (let i = 0; i < services.length; i++) {
+        const service = services[currentIndex];
+        const data = await fetchFromAI(service.url, service.params);
+        if (data && (data.gpt4 || data.reply || data.response)) {
+            response = data.gpt4 || data.reply || data.response;
+            break;
+        }
+        currentIndex = (currentIndex + 1) % services.length; // Move to the next service in the cycle
+    }
+
+    // Convert response to special fonts
+    const convertedResponse = Array.from(response)
+        .map(char => fonts[char] || char) // Use special font or original character if not in fonts
+        .join('');
+
+    return { response: convertedResponse, messageID };
+}
+
+module.exports = {
+    config: {
+        name: 'hercai',
+        author: 'aesther',
+        role: 0,
+        category: 'Ai',
+        shortDescription: 'ai to ask anything',
+    },
+    onStart: async function ({ api, event, args }) {
+        const input = args.join(' ').trim();
+        if (!input) {
+            api.sendMessage(`🫰✰`, event.threadID, event.messageID);
+            return;
+        }
+
+        const { response, messageID } = await getAIResponse(input, event.senderID, event.messageID);
+        api.sendMessage(`✰...𝔻𝕒𝕧𝕚𝕕 𝐩𝐫𝐨𝐜𝐞̀𝐝𝐞 𝐚 𝐯𝐨𝐭𝐫𝐞 𝐫𝐞𝐪𝐮𝐞̂𝐭𝐞...✰`, event.threadID, messageID);
+    },
+    onChat: async function ({ event, message }) {
+        const messageContent = event.body.trim().toLowerCase();
+        if (messageContent.startsWith("-hercai")) {
+            const input = messageContent.replace(/^-hercai\s*/, "").trim();
+            const { response, messageID } = await getAIResponse(input, event.senderID, message.messageID);
+            // Construct message with special fonts
+            const formattedResponse = `${response}`;
+            message.reply(formattedResponse, messageID);
+        }
+    }
+};
