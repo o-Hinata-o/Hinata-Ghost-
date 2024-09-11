@@ -15,6 +15,6 @@ onChat: async function({
 	message,
 	getLang
 }) {
-	if (event.body && event.body.toLowerCase() == "😶") return message.reply("👀");
+	if (event.body && event.body.toLowerCase() == "😶") return message.reply("Tu ressemble à mon créateur 😂");
 }
 };
