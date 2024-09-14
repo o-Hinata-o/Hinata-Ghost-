@@ -31,7 +31,7 @@ module.exports = {
 		},
 		en: {
 			missingMessage: "Veuillez saisir le message que vous souhaitez envoyer à tous les groupes...💚",
-			notification: "📨Notification de l'administrateur du bot à tous les groupes de discussion 📨\n 💚(Pour répondre, utilisez la cmd『-callad』)💚",
+			notification: "📨Notification de l'administrateur du bot à tous les groupes de discussion 📨\n 💚(Pour répondre, utilisez la cmd『💚callad』)💚",
 			sendingNotification: "💚Envoie des notifications de l'administrateur du bot à %1 groupes de discussion💚",
 			sentNotification: "🎉 L'envoie d'une notification à %1 groupes réussie..🍀",
 			errorSendingNotification: "Une erreur s'est produite lors de l'envoi d'une notification à %1 groupes:\n%2"
