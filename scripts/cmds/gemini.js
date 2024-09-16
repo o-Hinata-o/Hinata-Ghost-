@@ -66,7 +66,7 @@ module.exports = {
 
       api.setMessageReaction("✅", event.messageID, () => { }, true);
       message.reply({
-        body: `${name}, ${result}`,
+        body: `\n╭━━━━━━━━━━━◆\n│💚.∘❀🍀𝗚𝗘𝗠𝗜𝗡𝗜🍀❀∘.💚\n╰━━━━━━━━━━━◆\n${name}, ${result}\n╭━━━━━━━━━━━◆\n│✧.(⊃^ ω ^)🍀(.• ⁠ᴗ⁠ •⊂).\n╰━━━━━━━━━━━◆`,
         mentions: ment,
       }, (err, info) => {
         global.GoatBot.onReply.set(info.messageID, {
