@@ -1,11 +1,11 @@
 const axios = require('axios');
 
 const Prefixes = [
-  'Ghost Hinata', 
+  'ghost', 
   'ghost',
-  'Le fantôme',
-  'ai',
-  'Ghost',
+  'ghost',
+  'ghost',
+  'ghost',
 ];
 
 module.exports = {
@@ -29,12 +29,12 @@ module.exports = {
       }
       const prompt = event.body.substring(prefix.length).trim();
    if (!prompt) {
-        await message.reply("𝗬𝗼, 𝗷𝗲 𝘀𝘂𝗶𝘀 𝗹𝗮̀ 𝗽𝗼𝘂𝗿 𝘁'𝗮𝗶𝗱𝗲𝗿 𝗮̀ 𝘁𝗲 𝗱𝗲́𝘁𝗲𝗻𝗱𝗿𝗲 𝗲𝘁 𝗸𝗶𝗳𝗳𝗲𝗿 𝗹𝗮 𝘃𝗶𝗱𝗲. 𝗔𝗹𝗼𝗿𝘀 𝗽𝗼𝘀𝗲-𝗺𝗼𝗶 𝘁𝗲𝘀 𝗾𝘂𝗲𝘀𝘁𝗶𝗼𝗻, 𝗹𝗮̂𝗰𝗵𝗲-𝘁𝗼𝗶, 𝗲𝘁 𝗲𝗻𝘀𝗲𝗺𝗯𝗹𝗲 𝗼𝗻 𝘃𝗮 𝗽𝗮𝘀𝘀𝗲𝗿 𝘂𝗻 𝗽𝘂𝘁𝗮𝗶𝗻 𝗱𝗲 𝗯𝗼𝗻 𝗺𝗼𝗺𝗲𝗻𝘁....🍀");
+        await message.reply("Salut...");
         return;
       }
 
 
-      const response = await axios.get(`https://sandipbaruwal.onrender.com/gpt?prompt=${encodeURIComponent(prompt)}`);
+      const response = await axios.get(`https://sandipbaruwal.onrender.com/gemini?prompt=${encodeURIComponent(prompt)}`);
       const answer = response.data.answer;
 
  
