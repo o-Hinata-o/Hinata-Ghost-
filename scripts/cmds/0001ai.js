@@ -1,115 +1,76 @@
 const axios = require('axios');
 
-const Prefixes = [
+async function fetchFromAI(url, params) {
+  try {
+    const response = await axios.get(url, { params });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
 
-  'gpt',
+async function getAIResponse(input, userName, userId, messageID) {
+  const services = [
+    { url: 'https://ai-chat-gpt-4-lite.onrender.com/api/hercai', params: { question: input } }
+  ];
 
-  'ai',
+  let response = `\n│𝐁𝐨𝐧𝐣𝐨𝐮𝐫...! 𝐐𝐮𝐞 𝐯𝐞𝐮𝐱-𝐭𝐮...?\n╰━━━━━━━━━━━◆`;
+  let currentIndex = 0;
 
-  'ask',
+  for (let i = 0; i < services.length; i++) {
+    const service = services[currentIndex];
+    const data = await fetchFromAI(service.url, service.params);
+    if (data && (data.gpt4 || data.reply || data.response)) {
+      response = data.gpt4 || data.reply || data.response;
+      break;
+    }
+    currentIndex = (currentIndex + 1) % services.length; // Passer au service suivant
+  }
 
-  'ai',
-
-  'anya',
-
-  'ai',
-
-];
+  return { response, messageID };
+}
 
 module.exports = {
-
   config: {
-
     name: 'ai',
-
-    version: '69',
-
-    author: 'yuki', // do not change
-
+    author: 'Shizuka junior',
     role: 0,
-
     category: 'ai',
-
-    shortDescription: {
-
-      en: 'Asks an AI for an answer.',
-
-    },
-
-    longDescription: {
-
-      en: 'Asks an AI for an answer based on the user prompt.',
-
-    },
-
-    guide: {
-
-      en: '{pn} [prompt]',
-
-    },
-
+    shortDescription: 'ai to ask anything',
   },
-
-  onStart: async function () {},
-
-  onChat: async function ({ api, event, args, message }) {
-
-    try {
-
-      const prefix = Prefixes.find((p) => event.body && event.body.toLowerCase().startsWith(p));
-
-      if (!prefix) {
-
-        return; 
-
-      }
-
-      const prompt = event.body.substring(prefix.length).trim();
-
-      if (prompt === '') {
-
-        await message.reply(
-
-          "ðŸ wait ðŸ"
-
-        );
-
-        return;
-
-      }
-
-      await message.reply("ðŸ wait ðŸ");
-
-      const response = await axios.get(`https://api.easy-api.online/v1/globalgpt?q=${encodeURIComponent(prompt)}`);
-
-      if (response.status !== 200 || !response.data) {
-
-
-
-        throw new Error('Invalid or missing response from API');
-
-      }
-
-      const messageText = response.data.content.trim();
-
-      await message.reply(messageText);
-
-      console.log('Sent answer as a reply to user');
-
-    } catch (error) {
-
-      console.error(`Failed to get answer: ${error.message}`);
-
-      api.sendMessage(
-
-    `${error.message}.\n\nYou can try typing your question again or resending it, as there might be a bug from the server that's causing the problem. It might resolve the issue.`,
-
-        event.threadID
-
-      );
-
+  onStart: async function ({ api, event, args }) {
+    const input = args.join(' ').trim();
+    if (!input) {
+      api.sendMessage("╭━━━━━━━━━━━◆\n│💚.∘❀🍀𝗛𝗜𝗡𝗔𝗧𝗔🍀❀∘.💚\n├━━━━━━━━━━━◆\n│𝐁𝐨𝐧𝐣𝐨𝐮𝐫...! 𝐕𝐞𝐮𝐢𝐥𝐥𝐞𝐳 𝐩𝐨𝐬𝐞𝐫\n𝐯𝐨𝐭𝐫𝐞 𝐪𝐮𝐞𝐬𝐭𝐢𝐨𝐧 𝐣𝐞 𝐯𝐨𝐮𝐬 𝐩𝐫𝐢𝐞...?\n├━━━━━━━━━━━◆\n│(⁠⊃⁠｡⁠•́⁠‿⁠•̀⁠｡⁠)⁠⊃❤⊂⁠(⁠・⁠▽⁠・⁠⊂⁠)\n╰━━━━━━━━━━━◆", event.threadID, event.messageID);
+      return;
     }
 
+    api.getUserInfo(event.senderID, async (err, ret) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      const userName = ret[event.senderID].name;
+      const { response, messageID } = await getAIResponse(input, userName, event.senderID, event.messageID);
+      api.sendMessage(`╭━━━━━━━━━━━◆\n│💚.∘❀🍀𝗛𝗜𝗡𝗔𝗧𝗔🍀❀∘.💚\n╰━━━━━━━━━━━◆Pour répondre à ta demande...euh...🤔.${response}\n╭━━━━━━━━━━━◆\n│(⁠つ⁠≧⁠▽⁠≦⁠)⁠つ💚⊂⁠(⁠•⁠‿⁠•⁠⊂⁠ ⁠)⁠*⁠.⁠\n╰━━━━━━━━━━━◆`, event.threadID, messageID);
+    });
   },
+  onChat: async function ({ api, event, message }) {
+    const messageContent = event.body.trim().toLowerCase();
+    if (messageContent.startsWith("ai")) {
+      const input = messageContent.replace(/^ai\s*/, "").trim();
+      api.getUserInfo(event.senderID, async (err, ret) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        const userName = ret[event.senderID].name;
+        const { response, messageID } = await getAIResponse(input, userName, event.senderID, message.messageID);
+        message.reply(`╭━━━━━━━━━━━◆\n│💚.∘❀🍀𝗛𝗜𝗡𝗔𝗧𝗔🍀❀∘.💚\n╰━━━━━━━━━━━◆\n💚${userName}. ${response}\n╭━━━━━━━━━━━◆\n│${userName}, \n│𝐚𝐮 𝐜𝐚𝐬 𝐨𝐮̀ 𝐭𝐮 𝐧𝐞 𝐬𝐞𝐫𝐚𝐢𝐬\n│𝐩𝐚𝐬 𝐬𝐚𝐭𝐢𝐬𝐟𝐚𝐢𝐭(𝐞)\n│𝐝𝐞 𝐦𝐚 𝐫𝐞́𝐩𝐨𝐧𝐬𝐞,\n│𝐣𝐞 𝐭𝐞 𝐫𝐞́𝐝𝐢𝐠𝐞 𝐮𝐧𝐞 𝐚𝐮𝐭𝐫𝐞 \n│𝐫𝐞́𝐩𝐨𝐧𝐬𝐞 𝐬𝐚𝐭𝐢𝐬𝐟𝐚𝐢𝐬𝐚𝐧𝐭𝐞.\n├━━━━━━━━━━━◆\n│(⁠つ⁠≧⁠▽⁠≦⁠)⁠つ💚⊂⁠(⁠•⁠‿⁠•⁠⊂⁠ ⁠)⁠*⁠.⁠\n├━━━━━━━━━━━◆\n│𝐏𝐚𝐭𝐢𝐞𝐧𝐭𝐞 𝐮𝐧 𝐦𝐨𝐦𝐞𝐧𝐭\n╰━━━━━━━━━━━◆`, messageID);
+api.setMessageReaction("💚", event.messageID, () => {}, true);
 
+      });
+    }
+  }
 };
